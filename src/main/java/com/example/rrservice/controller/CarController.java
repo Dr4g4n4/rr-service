@@ -24,10 +24,14 @@ public class CarController {
     public ResponseEntity<String> testMethod (@PathVariable String name){
         EngineType engineType = new EngineType(10,10,10,10,"DIZEL");
         Car car = new Car("45dg4", engineType,"44rdg", "passat","208",new Date(), new Date(),15.0);
-
         System.out.println("name " + name);
         kafkaTemplate.send(topic,car);
         return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<String> createCar(@RequestBody Car car){
+        kafkaTemplate.send(topic,car);
+        return new ResponseEntity<String>("ACCEPTED", HttpStatus.OK);
+    }
 }
