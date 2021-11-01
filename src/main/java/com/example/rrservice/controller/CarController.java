@@ -2,7 +2,9 @@ package com.example.rrservice.controller;
 
 import com.example.rrservice.model.Car;
 import com.example.rrservice.model.EngineType;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +35,10 @@ public class CarController {
     public ResponseEntity<String> createCar(@RequestBody Car car){
         kafkaTemplate.send(topic,car);
         return new ResponseEntity<String>("ACCEPTED", HttpStatus.OK);
+    }
+    @Bean
+    public NewTopic createTopic(){
+
+        return new NewTopic(topic,3,(short) 1);
     }
 }

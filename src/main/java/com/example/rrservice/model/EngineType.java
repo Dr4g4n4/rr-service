@@ -3,9 +3,11 @@ package com.example.rrservice.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class EngineType {
+public class EngineType implements Serializable {
 
     private int motorPower;
     private int hPower;
